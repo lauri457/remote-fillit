@@ -6,7 +6,7 @@
 /*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:33:16 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/21 01:45:24 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/21 14:06:46 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,51 @@ t_map *new_map(int size)
 		i++;
 	}
 	return (map);
+}
+
+/*	Places tetrimino at a specific location checking if placement	*/
+/*	is possible.  Otherwise returns 0.								*/
+
+void	*place_tetrimino(t_etris *tetris, t_map *map, int x, int y)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < tetris->width)
+	{
+		j = 0;
+		while (j < tetris->height)
+		{
+			if (tetris->pos[j][i] == '#' && map->array[y + j][x + i] != '.')
+				return(0);
+			j++;
+		}
+		i++;
+	}
+	set_piece(tetris, map, new_point(x, y), tetris->value);
+	return(1);
+}
+
+/*	Places a tetrimino piece at the specified location with value character.	*/
+/*	Afterwards removes memory stored in point.									*/
+
+void	*set_piece(t_etris *tetris, t_map *map, t_point *point, char value)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < tetris->width)
+	{
+		j = 0;
+		while (j < tetris->height)
+		{
+			if (tetris->pos[j][i] == '#')
+				map->array[point->y + j][point->x + i] = value;
+			j++;
+		}
+		i++;
+	}
+	v_del((void **)&point);
 }
