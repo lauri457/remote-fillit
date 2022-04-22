@@ -6,7 +6,7 @@
 /*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:33:16 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/22 11:14:44 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:53:40 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_map	*new_map(int size)
 /*	Places tetrimino at a specific location checking if placement	*/
 /*	is possible.  Otherwise returns 0.								*/
 
-void	place(t_etris *tetris, t_map *map, int x, int y)
+int	place(t_etris *tetris, t_map *map, int x, int y)
 {
 	int	i;
 	int	j;

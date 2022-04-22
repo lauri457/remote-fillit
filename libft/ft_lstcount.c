@@ -6,7 +6,7 @@
 /*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:00:22 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/22 11:05:33 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:48:21 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ size_t	ft_lstcount(t_list *lst)
 		lst = lst->next;
 		i++;
 	}
-	i++;
+	return (i);
 }
