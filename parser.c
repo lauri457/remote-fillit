@@ -6,7 +6,7 @@
 /*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 08:54:41 by lharkala          #+#    #+#             */
-/*   Updated: 2022/04/22 11:21:02 by lharkala         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:14:10 by lharkala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	print_piece(t_etris *piece)
 
 t_tuple	min_xy(t_etris *piece)
 {
-	t_tuple min;
-	int i;
+	t_tuple	min;
+	int		i;
 
 	min.x = 3;
 	min.y = 3;
@@ -43,8 +43,8 @@ t_tuple	min_xy(t_etris *piece)
 
 void	align(t_etris *piece)
 {
-	t_tuple min;
-	int i;
+	t_tuple		min;
+	int			i;
 
 	min = min_xy(piece);
 	i = 0;
@@ -55,13 +55,14 @@ void	align(t_etris *piece)
 		i++;
 	}
 }
+
 t_etris	*new_piece(const char *s)
 {
-	t_etris *piece;
-	int i;
-	int block;
+	t_etris		*piece;
+	int			i;
+	int			block;
 
-	piece = (t_etris*)malloc(sizeof(t_etris));
+	piece = (t_etris *)malloc(sizeof(t_etris));
 	i = 0;
 	block = 0;
 	while (s[i])
@@ -77,28 +78,80 @@ t_etris	*new_piece(const char *s)
 		i++;
 	}
 	align(piece);
-	print_piece(piece);
+	// print_piece(piece);
 	return (piece);
+}
+
+int	connectioncount(char *s)
+{
+	int	count;
+	int	i;
+
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (s[i] == '#')
+		{
+			if ((i + 1) < 20 && s[i + 1] == '#')
+				count++;
+			if ((i - 1) >= 0 && s[i - 1] == '#')
+				count++;
+			if ((i + 5) < 20 && s[i + 5] == '#')
+				count++;
+			if ((i - 5) >= 0 && s[i - 5] == '#')
+				count++;
+		}
+		i++;
+	}
+	return (count == 6 || count == 8);
+}
+
+int	charcount(char *s)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (i < 20)
+	{
+		if (i % 5 < 4)
+		{
+			if (!(s[i] == '#' || s[i] == '.'))
+				return (invalid_chars);
+			if (s[i] == '#' && ++count > 4)
+				return (invalid_count);
+		}
+		else if (s[i] != '\n')
+			return (invalid_mapsize);
+		i++;
+	}
+	if (s[20] != '\n')
+		return (missing_endl);
+	return (correct_count);
 }
 
 void	parse_pieces()
 {
-	char buff[22];
-	int piece_count;
-	size_t size;
-	int ret;
-	int fd;
+	char	buff[22];
+	int		piece_count;
+	size_t	size;
+	int		ret;
+	int		fd;
 
 	fd = open("./testfiles/test.txt", 00);
 	size = 21;
 	while (1)
 	{
 		ret = read(fd, buff, size);
-		buff[ret] = '\0';
 		if (ret < 20)
-			break;
+			break ;
+		buff[ret + 1] = '\0';
+		printf("%s\n", buff);
+		printf("cc: %d\n", charcount(buff));
+		printf("connections ok: %d\n", connectioncount(buff));
 		new_piece(buff);
 		piece_count++;
 	}
 }
-
