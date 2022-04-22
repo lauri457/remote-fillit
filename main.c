@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 22:17:01 by lharkala          #+#    #+#             */
-/*   Updated: 2022/04/18 16:25:15 by lharkala         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:08:10 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/inc/libft.h"
+#include "libft/libft.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>

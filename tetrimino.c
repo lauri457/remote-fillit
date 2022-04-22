@@ -6,7 +6,7 @@
 /*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:05:40 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/21 13:16:40 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:11:49 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*free_list(t_list *list)
 		tetris = (t_etris *)list->content;
 		next = list->next;
 		free_tetris(tetris);
-		v_del((void **)&list);
+		ft_memdel((void **)&list);
 		list = next;
 	}
 	return (NULL);
@@ -39,11 +39,11 @@ void	free_tetris(t_etris *tetris)
 	y = 0;
 	while (y < tetris->height)
 	{
-		v_del((void **)&(tetris->pos[y]));
+		ft_memdel((void **)&(tetris->pos[y]));
 		y++;
 	}
-	v_del((void **)&(tetris->pos));
-	v_del((void **)&tetris);
+	ft_memdel((void **)&(tetris->pos));
+	ft_memdel((void **)&tetris);
 }
 
 /*	Creates a new tetrimino structure		*/
@@ -52,7 +52,7 @@ t_etris	*new_tetris(char **pos, int width, int height, char value)
 {
 	t_etris	*tetris;
 
-	tetris = v_alloc(sizeof(t_etris));
+	tetris = ft_memalloc(sizeof(t_etris));
 	tetris->pos = pos;
 	tetris->height = height;
 	tetris->width = width;
@@ -64,9 +64,9 @@ t_etris	*new_tetris(char **pos, int width, int height, char value)
 
 t_point	*new_point(int x, int y)
 {
-	t_point *point;
+	t_point	*point;
 
-	point = v_alloc(sizeof(t_point));
+	point = ft_memalloc(sizeof(t_point));
 	point->x = x;
 	point->y = y;
 	return (point);

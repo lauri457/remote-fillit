@@ -6,7 +6,7 @@
 /*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:33:16 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/21 14:06:46 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/22 11:14:44 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@
 
 void	free_map(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < map->size)
 	{
-		v_del((void **)&(map->array[i]));
+		ft_memdel((void **)&(map->array[i]));
 		i++;
 	}
-	v_del((void **)&(map->array));
-	v_del((void **)&map);
+	ft_memdel((void **)&(map->array));
+	ft_memdel((void **)&map);
 }
 
 /*	Prints the map.		*/
 
-void print_map(t_map *map)
+void	print_map(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < map->size)
@@ -46,20 +46,19 @@ void print_map(t_map *map)
 /*	Creates a new map and allocates memory to both the map and the	*/
 /*	array within it.  fills each initial slot with '.'				*/
 
-t_map *new_map(int size)
+t_map	*new_map(int size)
 {
 	t_map	*map;
 	int		i;
 	int		j;
 
-	map = (t_map *)v_alloc(sizeof(t_map));
+	map = (t_map *)ft_memalloc(sizeof(t_map));
 	map->size = size;
-	map->array = (char **)v_alloc(sizeof(char *) * size);
+	map->array = (char **)ft_memalloc(sizeof(char *) * size);
 	i = 0;
-
 	while (i < size)
 	{
-		map->array[i] = s_new(size);
+		map->array[i] = ft_strnew(size);
 		j = 0;
 		while (j < size)
 		{
@@ -74,10 +73,10 @@ t_map *new_map(int size)
 /*	Places tetrimino at a specific location checking if placement	*/
 /*	is possible.  Otherwise returns 0.								*/
 
-void	*place_tetrimino(t_etris *tetris, t_map *map, int x, int y)
+void	place(t_etris *tetris, t_map *map, int x, int y)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < tetris->width)
@@ -86,22 +85,22 @@ void	*place_tetrimino(t_etris *tetris, t_map *map, int x, int y)
 		while (j < tetris->height)
 		{
 			if (tetris->pos[j][i] == '#' && map->array[y + j][x + i] != '.')
-				return(0);
+				return (0);
 			j++;
 		}
 		i++;
 	}
 	set_piece(tetris, map, new_point(x, y), tetris->value);
-	return(1);
+	return (1);
 }
 
-/*	Places a tetrimino piece at the specified location with value character.	*/
-/*	Afterwards removes memory stored in point.									*/
+/*	Places a tetrimino piece at the specified location with			*/
+/*	value character.  Afterwards removes memory stored in point.	*/
 
-void	*set_piece(t_etris *tetris, t_map *map, t_point *point, char value)
+void	set_piece(t_etris *tetris, t_map *map, t_point *point, char value)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < tetris->width)
@@ -115,5 +114,5 @@ void	*set_piece(t_etris *tetris, t_map *map, t_point *point, char value)
 		}
 		i++;
 	}
-	v_del((void **)&point);
+	ft_memdel((void **)&point);
 }
