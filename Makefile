@@ -6,7 +6,7 @@
 #    By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 11:09:04 by lharkala          #+#    #+#              #
-#    Updated: 2022/04/07 11:16:13 by lharkala         ###   ########.fr        #
+#    Updated: 2022/04/22 09:03:00 by lharkala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = test_fillit
 
 FLAGS = -Wall -Wextra -Werror -Ilibft/inc
 
-SRCS = main.c
+SRCS = main.c parser.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -24,7 +24,7 @@ all: $(NAME)
 
 $(NAME):
 	gcc $(FLAGS) -c $(SRCS)
-	gcc -O3 $(FLAGS) $(OBJS) -o $(NAME) libft/libft.a
+	gcc $(FLAGS) $(OBJS) -I. -o $(NAME) libft/libft.a
 
 clean:
 	rm -f $(OBJS)
