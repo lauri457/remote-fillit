@@ -3,118 +3,46 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+         #
+#    By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/11/21 13:06:34 by lharkala          #+#    #+#              #
-#    Updated: 2022/04/07 11:16:43 by lharkala         ###   ########.fr        #
+#    Created: 2021/11/10 10:06:39 by oseitama          #+#    #+#              #
+#    Updated: 2022/04/22 11:07:16 by oseitama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	libft.a
+NAME = libft.a
 
-CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -O3
+SRC = ft_bzero.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c
+SRC += ft_memset.c ft_strcat.c ft_strcpy.c ft_strdup.c ft_strlen.c ft_strncat.c
+SRC += ft_strncpy.c ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strstr.c
+SRC += ft_strnstr.c ft_strcmp.c ft_strncmp.c ft_atoi.c ft_isalpha.c
+SRC += ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_tolower.c
+SRC += ft_toupper.c  ft_memalloc.c ft_memdel.c ft_strnew.c ft_strdel.c
+SRC += ft_strclr.c ft_striter.c ft_striteri.c ft_strmap.c ft_strmapi.c
+SRC += ft_strequ.c ft_strnequ.c ft_strsub.c ft_strjoin.c ft_strtrim.c
+SRC += ft_strsplit.c ft_itoa.c ft_putchar.c ft_putstr.c ft_putendl.c
+SRC += ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c
+SRC += ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c
+SRC += ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_isspace.c
+SRC += ft_wordcount.c ft_wordlen.c ft_lstrev.c ft_lstcount.c
 
-SRC_DIR		=	src/
-INC_DIR		=	inc/
-OBJ_DIR		=	obj/
+OBJ = $(SRC:.c=.o)
 
-SRC =	mem/v_set.c \
-		mem/v_bzero.c \
-		mem/v_cpy.c \
-		mem/v_chr.c \
-		mem/v_ccpy.c \
-		mem/v_move.c \
-		mem/v_cmp.c \
-		mem/v_alloc.c \
-		mem/v_del.c \
-		mem/v_calloc.c \
-		str/s_len.c \
-		str/s_dup.c \
-		str/s_cpy.c \
-		str/s_ncpy.c \
-		str/s_cat.c \
-		str/s_ncat.c \
-		str/s_lcat.c \
-		str/s_chr.c \
-		str/s_rchr.c \
-		str/s_cmp.c \
-		str/s_ncmp.c \
-		str/s_str.c \
-		str/s_nstr.c \
-		str/s_lcpy.c \
-		str/s_new.c \
-		str/s_del.c \
-		str/s_clr.c \
-		str/s_iter.c \
-		str/s_iteri.c \
-		str/s_map.c \
-		str/s_mapi.c \
-		str/s_equ.c \
-		str/s_nequ.c \
-		str/s_sub.c \
-		str/s_join.c \
-		str/s_trim.c \
-		str/s_split.c \
-		int/c_itoa.c \
-		int/c_atoi.c \
-		chars/is_upper.c \
-		chars/is_lower.c \
-		chars/is_alpha.c \
-		chars/is_digit.c \
-		chars/is_alnum.c \
-		chars/is_ascii.c \
-		chars/is_print.c \
-		chars/is_space.c \
-		chars/c_toupper.c \
-		chars/c_tolower.c \
-		io/fd_putchar.c \
-		io/fd_putstr.c \
-		io/fd_putendl.c \
-		io/fd_putnbr.c \
-		io/fd_getline.c \
-		list/l_new.c \
-		list/l_delone.c \
-		list/l_del.c \
-		list/l_add.c \
-		list/l_iter.c \
-		list/l_map.c \
+all: $(NAME)
 
-SRCS		=	$(addprefix $(SRC_DIR), $(SRC))
-OBJS		=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
-DIR			=	$(sort $(dir $(OBJS)))
-INDEX		=	0
-
-all :
-	@$(MAKE) $(NAME)
-
-$(NAME) :		$(OBJS)
-	@ar rc $(NAME) $(OBJS)
+$(NAME): $(OBJ)
+	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@printf "make $(NAME)\n"
 
-$(DIR) :
-	@mkdir -p $@
+%.o: %.c
+	@gcc -Wall -Wextra -Werror -c $< -o $@
 
-$(OBJ_DIR)%.o :	$(SRC_DIR)%.c | $(DIR)
-	@$(CC) $(FLAGS) -c $< -o $@\
-		-I $(INC_DIR)
+clean:
+	@/bin/rm -f $(OBJ)
 
-clean :
-	@if [ -d $(OBJ_DIR) ]; \
-	then \
-		rm -rf $(OBJ_DIR); \
-		printf "clean $(NAME)\n"; \
-	fi;
+fclean: clean
+	@/bin/rm -f $(NAME)
 
-fclean :		clean
-	@if [ -e $(NAME) ]; \
-	then \
-		rm -rf $(NAME); \
-		printf "fclean $(NAME)\n"; \
-	fi;
+re: fclean all
 
-re :			fclean
-	@$(MAKE) $(NAME)
-
-.PHONY :		fclean clean re
+.PHONY: all, clean, fclean, re
