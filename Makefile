@@ -6,7 +6,7 @@
 #    By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 11:09:04 by lharkala          #+#    #+#              #
-#    Updated: 2022/04/22 09:03:00 by lharkala         ###   ########.fr        #
+#    Updated: 2022/04/22 13:55:09 by lharkala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ all: $(NAME)
 
 $(NAME):
 	gcc $(FLAGS) -c $(SRCS)
-	gcc $(FLAGS) $(OBJS) -I. -o $(NAME) libft/libft.a
+	gcc -g $(FLAGS) $(OBJS) -I. -o $(NAME) libft/libft.a
 
 clean:
 	rm -f $(OBJS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:29:25 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/22 12:17:54 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/22 13:18:55 by lharkala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 # include <string.h>
 # include "libft/libft.h"
 # include <fcntl.h>
+
+enum	e_returns
+{
+	correct_count = 1,
+	invalid_count = -1,
+	invalid_chars = -2,
+	invalid_mapsize = -3,
+	missing_endl = -4
+};
 
 typedef struct s_tuple
 {
