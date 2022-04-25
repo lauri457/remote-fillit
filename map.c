@@ -6,7 +6,7 @@
 /*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:33:16 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/22 11:53:40 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/25 11:49:10 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 /*	Frees the memory within the map as well as the array.		*/
 
-void	free_map(t_map *map)
+void	free_map(t_map *map, int map_size)
 {
 	int	i;
 
 	i = 0;
-	while (i < map->size)
+	while (i < map_size)
 	{
 		ft_memdel((void **)&(map->array[i]));
 		i++;
@@ -30,12 +30,12 @@ void	free_map(t_map *map)
 
 /*	Prints the map.		*/
 
-void	print_map(t_map *map)
+void	print_map(t_map *map, int size)
 {
 	int	i;
 
 	i = 0;
-	while (i < map->size)
+	while (i < size)
 	{
 		ft_putstr(map->array[i]);
 		ft_putchar('\n');
@@ -46,73 +46,45 @@ void	print_map(t_map *map)
 /*	Creates a new map and allocates memory to both the map and the	*/
 /*	array within it.  fills each initial slot with '.'				*/
 
-t_map	*new_map(int size)
+t_map	*new_map(int map_size)
 {
 	t_map	*map;
 	int		i;
 	int		j;
 
 	map = (t_map *)ft_memalloc(sizeof(t_map));
-	map->size = size;
-	map->array = (char **)ft_memalloc(sizeof(char *) * size);
+	map->array = (char **)ft_memalloc(sizeof(char *) * map_size);
 	i = 0;
-	while (i < size)
+	while (i < map_size)
 	{
-		map->array[i] = ft_strnew(size);
-		j = 0;
-		while (j < size)
-		{
-			map->array[i][j] = '.';
-			j++;
-		}
+		map->array[i] = ft_strnew(map_size);
+		ft_memset(map->array[i], '.', map_size);
 		i++;
 	}
 	return (map);
 }
 
-/*	Places tetrimino at a specific location checking if placement	*/
-/*	is possible.  Otherwise returns 0.								*/
-
-int	place(t_etris *tetris, t_map *map, int x, int y)
+size_t	count_tetris(t_etris *piecelist)
 {
-	int	i;
-	int	j;
+	size_t	count;
 
-	i = 0;
-	while (i < tetris->width)
+	count = 0;
+	while(piecelist)
 	{
-		j = 0;
-		while (j < tetris->height)
-		{
-			if (tetris->pos[j][i] == '#' && map->array[y + j][x + i] != '.')
-				return (0);
-			j++;
-		}
-		i++;
+		piecelist = piecelist->next;
+		count++;
 	}
-	set_piece(tetris, map, new_point(x, y), tetris->value);
-	return (1);
+	return (count);
 }
 
-/*	Places a tetrimino piece at the specified location with			*/
-/*	value character.  Afterwards removes memory stored in point.	*/
+/*	Gets the rounded up square root.		*/
 
-void	set_piece(t_etris *tetris, t_map *map, t_point *point, char value)
+int	round_up_sqrt(int n)
 {
-	int	i;
-	int	j;
+	int map_size;
 
-	i = 0;
-	while (i < tetris->width)
-	{
-		j = 0;
-		while (j < tetris->height)
-		{
-			if (tetris->pos[j][i] == '#')
-				map->array[point->y + j][point->x + i] = value;
-			j++;
-		}
-		i++;
-	}
-	ft_memdel((void **)&point);
+	map_size = 2;
+	while (map_size * map_size < n)
+		map_size++;
+	return (map_size);
 }

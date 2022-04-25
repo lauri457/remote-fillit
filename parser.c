@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 08:54:41 by lharkala          #+#    #+#             */
-/*   Updated: 2022/04/22 15:30:51 by lharkala         ###   ########.fr       */
+/*   Updated: 2022/04/25 11:40:09 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,56 +82,6 @@ t_etris	*new_piece(const char *s, char value)
 	align(piece);
 	// print_piece(piece);
 	return (piece);
-}
-
-int	connectioncount(char *s)
-{
-	int	count;
-	int	i;
-
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		if (s[i] == '#')
-		{
-			if ((i + 1) < 20 && s[i + 1] == '#')
-				count++;
-			if ((i - 1) >= 0 && s[i - 1] == '#')
-				count++;
-			if ((i + 5) < 20 && s[i + 5] == '#')
-				count++;
-			if ((i - 5) >= 0 && s[i - 5] == '#')
-				count++;
-		}
-		i++;
-	}
-	return (count == 6 || count == 8);
-}
-
-int	charcount(char *s)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (i < 20)
-	{
-		if (i % 5 < 4)
-		{
-			if (!(s[i] == '#' || s[i] == '.'))
-				return (invalid_chars);
-			if (s[i] == '#' && ++count > 4)
-				return (invalid_count);
-		}
-		else if (s[i] != '\n')
-			return (invalid_mapsize);
-		i++;
-	}
-	if (s[20] != '\n')
-		return (missing_endl);
-	return (correct_count);
 }
 
 void	ft_lstaddend(t_etris **alst, t_etris *new)
