@@ -6,7 +6,11 @@
 /*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:33:16 by oseitama          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/04/26 15:26:24 by lharkala         ###   ########.fr       */
+=======
+/*   Updated: 2022/04/26 15:41:50 by oseitama         ###   ########.fr       */
+>>>>>>> 9f500d459a944eaf6853bec68e2906babfb2ad92
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +67,8 @@ t_map	*new_map(int map_size)
 	}
 	return (map);
 }
+
+/*	Gets the amount of tetris pieces in the list					*/
 
 size_t	count_tetris(t_etris *piecelist)
 {
