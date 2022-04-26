@@ -6,7 +6,7 @@
 /*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 11:34:17 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/25 11:52:29 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/26 15:43:48 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	charcount(char *s)
 	return (correct_count);
 }
 
+/*	Checks connections.  6 or 8 are valid. others invalid.	*/
+
 int	connectioncount(char *s)
 {
 	int	count;
@@ -65,6 +67,9 @@ int	connectioncount(char *s)
 	}
 	return (count == 6 || count == 8);
 }
+
+/*	Loops checking if both charcouint and connection count. 	*/
+/*	Returns 1 if it passes. 0 otherwise.						*/
 
 int	valid(char *s, int size)
 {

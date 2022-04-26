@@ -6,7 +6,7 @@
 /*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:33:16 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/25 11:49:10 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/26 15:41:50 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,14 @@ t_map	*new_map(int map_size)
 	return (map);
 }
 
+/*	Gets the amount of tetris pieces in the list					*/
+
 size_t	count_tetris(t_etris *piecelist)
 {
 	size_t	count;
 
 	count = 0;
-	while(piecelist)
+	while (piecelist)
 	{
 		piecelist = piecelist->next;
 		count++;
@@ -81,7 +83,7 @@ size_t	count_tetris(t_etris *piecelist)
 
 int	round_up_sqrt(int n)
 {
-	int map_size;
+	int	map_size;
 
 	map_size = 2;
 	while (map_size * map_size < n)
