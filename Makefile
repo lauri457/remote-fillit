@@ -6,15 +6,20 @@
 #    By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 11:09:04 by lharkala          #+#    #+#              #
-#    Updated: 2022/04/26 15:23:14 by lharkala         ###   ########.fr        #
+#    Updated: 2022/04/27 00:12:08 by lharkala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = test_fillit
+NAME = fillit
 
-FLAGS = -Wall -Wextra -Werror -Ilibft/inc
+FLAGS = -Wall -Wextra -Werror -Ilibft
 
-SRCS = main.c parser.c valid.c testutils.c
+SRCS = 	main.c \
+		parser.c \
+		valid.c \
+		solver.c \
+		map.c \
+		utils.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -24,7 +29,7 @@ all: $(NAME)
 
 $(NAME):
 	gcc $(FLAGS) -c $(SRCS)
-	gcc -g $(FLAGS) $(OBJS) -I. -o $(NAME) libft/libft.a
+	gcc $(FLAGS) $(OBJS) -I. -o $(NAME) libft/libft.a
 
 clean:
 	rm -f $(OBJS)

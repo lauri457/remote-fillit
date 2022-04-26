@@ -6,7 +6,7 @@
 /*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 08:54:41 by lharkala          #+#    #+#             */
-/*   Updated: 2022/04/26 19:33:50 by lharkala         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:12:34 by lharkala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	align(t_etris *piece)
 	t_tuple		min;
 	int			i;
 
+	piece->x_offset = 0;
+	piece->y_offset = 0;
 	min = min_xy(piece);
 	i = 0;
 	while (i < 4)
@@ -101,27 +103,21 @@ static int	new_list(t_etris **tlist, char *s, int len, char value)
 		}
 		i += 21;
 	}
-	return (success);
+	return (value - 'A');
 }
 
-int	parse_pieces(char *av)
+int	parse_pieces(char *fname, t_etris **tlist)
 {
 	char	buff[545];
-	t_etris	**piece_ptr;
 	int		ret;
 	int		fd;
 	char	value;
 
 	value = 'A';
-	piece_ptr = malloc(sizeof(t_etris));
-	fd = open(av, 00);
+	fd = open(fname, 00);
 	ret = read(fd, buff, 545);
+	close(fd);
 	if ((ret > 544 || ret < 19) || (ret - 20) % 21 != 0)
 		return (fail);
-	if (new_list(piece_ptr, buff, ret, value))
-		{
-			list_test(piece_ptr);
-			return (success);
-		}
-	return (fail);
+	return (new_list(tlist, buff, ret, value));
 }

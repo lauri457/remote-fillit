@@ -6,31 +6,11 @@
 /*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:33:16 by oseitama          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/04/26 15:26:24 by lharkala         ###   ########.fr       */
-=======
-/*   Updated: 2022/04/26 15:41:50 by oseitama         ###   ########.fr       */
->>>>>>> 9f500d459a944eaf6853bec68e2906babfb2ad92
+/*   Updated: 2022/04/27 00:13:29 by lharkala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-/*	Frees the memory within the map as well as the array.		*/
-
-void	free_map(t_map *map, int map_size)
-{
-	int	i;
-
-	i = 0;
-	while (i < map_size)
-	{
-		ft_memdel((void **)&(map->array[i]));
-		i++;
-	}
-	ft_memdel((void **)&(map->array));
-	ft_memdel((void **)&map);
-}
 
 /*	Prints the map.		*/
 
@@ -54,7 +34,6 @@ t_map	*new_map(int map_size)
 {
 	t_map	*map;
 	int		i;
-	int		j;
 
 	map = (t_map *)ft_memalloc(sizeof(t_map));
 	map->array = (char **)ft_memalloc(sizeof(char *) * map_size);
@@ -66,31 +45,4 @@ t_map	*new_map(int map_size)
 		i++;
 	}
 	return (map);
-}
-
-/*	Gets the amount of tetris pieces in the list					*/
-
-size_t	count_tetris(t_etris *piecelist)
-{
-	size_t	count;
-
-	count = 0;
-	while (piecelist)
-	{
-		piecelist = piecelist->next;
-		count++;
-	}
-	return (count);
-}
-
-/*	Gets the rounded up square root.		*/
-
-int	round_up_sqrt(int n)
-{
-	int	map_size;
-
-	map_size = 2;
-	while (map_size * map_size < n)
-		map_size++;
-	return (map_size);
 }

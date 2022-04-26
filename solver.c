@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:38:03 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/26 15:46:47 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:14:51 by lharkala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*	Checks for piece overlap.		*/
 
-int	overlap(t_map *map, t_etris *piece)
+static int	overlap(t_map *map, t_etris *piece)
 {
 	int	x;
 	int	y;
@@ -24,48 +24,47 @@ int	overlap(t_map *map, t_etris *piece)
 	x = 0;
 	y = 0;
 	x = piece->coords[i].x + piece->x_offset;
-	y = piece->coords[i + 1].y + piece->y_offset;
+	y = piece->coords[i].y + piece->y_offset;
 	while (i <= 3 && map->array[y][x] == '.')
 	{
+		i++;
 		x = piece->coords[i].x + piece->x_offset;
 		y = piece->coords[i].y + piece->y_offset;
-		i++;
 	}
 	return (i != 4);
 }
 
 /*	Checks that the piece to be placed is within the map.	*/
 
-int	in_bounds(t_etris *piece, int map_size, char axis)
+static int	in_bounds(t_etris *piece, int map_size, char axis)
 {
 	int	i;
 
 	i = 0;
 	if (axis == 'y')
 	{
-		while (i < map_size)
+		while (i < 4)
 		{
-			if (piece->coords[i].y + piece->y_offset > map_size)
+			if (piece->coords[i].y + piece->y_offset >= map_size)
 				return (0);
 			i++;
 		}
-		i = 0;
 	}
 	else
 	{
-		while (i < map_size)
+		while (i < 4)
 		{
-			if (piece->coords[i].x + piece->x_offset > map_size)
+			if (piece->coords[i].x + piece->x_offset >= map_size)
 				return (0);
+			i++;
 		}
-		i++;
 	}
 	return (1);
 }
 
 /*	Place defined letter on the map.		*/
 
-void	place(t_etris *piece, t_map *map, char value)
+static void	place(t_etris *piece, t_map *map, char value)
 {
 	int	i;
 	int	x;
@@ -88,7 +87,7 @@ void	place(t_etris *piece, t_map *map, char value)
 /*	a tetrimino, if so, it necks if theres another tetrimino to place	*/
 /*	Returns 0 on solving being done, otherwise 1.						*/
 
-int	solve_map(t_map	*map, t_etris *piece, int map_size)
+static int	solve_map(t_map	*map, t_etris *piece, int map_size)
 {
 	if (!piece)
 		return (1);
@@ -118,12 +117,12 @@ int	solve_map(t_map	*map, t_etris *piece, int map_size)
 
 /*	Initial solver, tries to solve map witht he smallest map size	*/
 
-void	solve(t_etris *piecelist)
+void	solve(t_etris *piecelist, int piececount)
 {
 	t_map	*map;
 	int		map_size;
 
-	map_size = round_up_sqrt(count_tetris(piecelist) * 4);
+	map_size = round_up_sqrt(piececount * 4);
 	map = new_map(map_size);
 	while (!solve_map(map, piecelist, map_size))
 	{
