@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 11:34:17 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/25 11:52:29 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/26 16:06:12 by lharkala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	charcount(char *s)
 
 	i = 0;
 	count = 0;
-	while (i < 20)
+	while (i < 19)
 	{
 		if (i % 5 < 4)
 		{
@@ -36,9 +36,9 @@ int	charcount(char *s)
 			return (invalid_mapsize);
 		i++;
 	}
-	if (s[20] != '\n')
+	if (s[i] != '\n')
 		return (missing_endl);
-	return (correct_count);
+	return (success);
 }
 
 int	connectioncount(char *s)
@@ -48,7 +48,7 @@ int	connectioncount(char *s)
 
 	i = 0;
 	count = 0;
-	while (s[i])
+	while (i < 19)
 	{
 		if (s[i] == '#')
 		{

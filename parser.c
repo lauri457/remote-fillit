@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 08:54:41 by lharkala          #+#    #+#             */
-/*   Updated: 2022/04/25 11:40:09 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/26 19:33:50 by lharkala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-void	print_piece(t_etris *piece)
-{
-	printf("(%d, %d)\n", piece->coords[0].x, piece->coords[0].y);
-	printf("(%d, %d)\n", piece->coords[1].x, piece->coords[1].y);
-	printf("(%d, %d)\n", piece->coords[2].x, piece->coords[2].y);
-	printf("(%d, %d)\n\n", piece->coords[3].x, piece->coords[3].y);
-}
-
-t_tuple	min_xy(t_etris *piece)
+static t_tuple	min_xy(t_etris *piece)
 {
 	t_tuple	min;
 	int		i;
@@ -41,7 +31,7 @@ t_tuple	min_xy(t_etris *piece)
 	return (min);
 }
 
-void	align(t_etris *piece)
+static void	align(t_etris *piece)
 {
 	t_tuple		min;
 	int			i;
@@ -56,18 +46,20 @@ void	align(t_etris *piece)
 	}
 }
 
-t_etris	*new_piece(const char *s, char value)
+static t_etris	*new_piece(char *s, char value)
 {
 	t_etris		*piece;
 	int			i;
 	int			block;
 
+	if ((charcount(s) < 0 || !connectioncount(s)))
+		return (fail);
 	piece = (t_etris *)malloc(sizeof(t_etris));
 	piece->value = value;
 	piece->next = NULL;
 	i = 0;
 	block = 0;
-	while (s[i])
+	while (i < 19)
 	{
 		if (s[i] == '#')
 		{
@@ -80,135 +72,56 @@ t_etris	*new_piece(const char *s, char value)
 		i++;
 	}
 	align(piece);
-	// print_piece(piece);
 	return (piece);
 }
 
-void	ft_lstaddend(t_etris **alst, t_etris *new)
+static int	new_list(t_etris **tlist, char *s, int len, char value)
 {
-	t_etris	*tmp;
+	int		i;
+	t_etris	*new;
+	t_etris	*temp;
 
-	tmp = *alst;
-	if (alst && *alst == NULL)
-		*alst = new;
-	else
+	i = 0;
+	while (i < len)
 	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-}
-
-void	piecelist_add(t_etris **piecelist, t_etris *piece)
-{
-	// printf("%p\n", *piecelist);
-	if (piecelist && *piecelist == NULL)
-
+		new = new_piece(s + i, value++);
+		if (!new)
+			return (fail);
+		else
 		{
-			*piecelist = piece;
-		}
-	else
-	{
-		while ((*piecelist)->next)
-			(*piecelist) = (*piecelist)->next;
-		(*piecelist)->next = piece;
-	}
-}
-
-void	list_test(t_etris **piece)
-{
-	while ((*piece)->next)
-	{
-		printf("%c", (*piece)->value);
-		printf("(%d, %d) ", (*piece)->coords[0].x, (*piece)->coords[0].y);
-		printf("(%d, %d) ", (*piece)->coords[1].x, (*piece)->coords[1].y);
-		printf("(%d, %d) ", (*piece)->coords[2].x, (*piece)->coords[2].y);
-		printf("(%d, %d)\n", (*piece)->coords[3].x, (*piece)->coords[3].y);
-		(*piece) = (*piece)->next;
-	}
-	printf("%c", (*piece)->value);
-	printf("(%d, %d) ", (*piece)->coords[0].x, (*piece)->coords[0].y);
-	printf("(%d, %d) ", (*piece)->coords[1].x, (*piece)->coords[1].y);
-	printf("(%d, %d) ", (*piece)->coords[2].x, (*piece)->coords[2].y);
-	printf("(%d, %d)\n", (*piece)->coords[3].x, (*piece)->coords[3].y);
-}
-
-void	revert_coords(t_etris **piece)
-{
-	char map[4][4];
-	while ((*piece)->next)
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			for (int j = 0; j < 4; j++)
+			if (i == 0)
 			{
-				map[i][j] = '.';
+				*tlist = new;
+				temp = *tlist;
+				i += 21;
+				continue ;
 			}
+			temp->next = new;
+			temp = temp->next;
 		}
-		for (int k = 0; k < 4; k++)
-		{
-			map[(*piece)->coords[k].y][(*piece)->coords[k].x] = '#';
-		}
-		for (int i = 0; i < 4; i++)
-		{
-			for (int j = 0; j < 4; j++)
-			{
-				printf("%c", map[i][j]);
-			}
-			printf("\n");
-		}
-		printf("\n");
-		(*piece) = (*piece)->next;
+		i += 21;
 	}
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			map[i][j] = '.';
-		}
-	}
-	for (int k = 0; k < 4; k++)
-	{
-		map[(*piece)->coords[k].y][(*piece)->coords[k].x] = '#';
-	}
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			printf("%c", map[i][j]);
-		}
-		printf("\n");
-	}
+	return (success);
 }
 
-void	parse_pieces()
+int	parse_pieces(char *av)
 {
-	char	buff[22];
+	char	buff[545];
 	t_etris	**piece_ptr;
-	int		piece_count;
-	size_t	size;
 	int		ret;
 	int		fd;
 	char	value;
 
-	piece_ptr = malloc(sizeof(t_etris));
-
 	value = 'A';
-	fd = open("./testfiles/valid.txt", 00);
-	size = 21;
-	while (1)
-	{
-		ret = read(fd, buff, size);
-		if (ret < 20)
-			break ;
-		buff[ret + 1] = '\0';
-		// printf("%s\n", buff);
-		if (charcount(buff) && connectioncount(buff))
-			ft_lstaddend(piece_ptr, new_piece(buff, value++));
-		piece_count++;
-	}
-
-	// printf("%c %c %c", (*piece_ptr)->value, (*piece_ptr)->next->value, (*piece_ptr)->next->next->value);
-	// list_test(piece_ptr);
-	revert_coords(piece_ptr);
+	piece_ptr = malloc(sizeof(t_etris));
+	fd = open(av, 00);
+	ret = read(fd, buff, 545);
+	if ((ret > 544 || ret < 19) || (ret - 20) % 21 != 0)
+		return (fail);
+	if (new_list(piece_ptr, buff, ret, value))
+		{
+			list_test(piece_ptr);
+			return (success);
+		}
+	return (fail);
 }

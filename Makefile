@@ -6,7 +6,7 @@
 #    By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 11:09:04 by lharkala          #+#    #+#              #
-#    Updated: 2022/04/22 13:55:09 by lharkala         ###   ########.fr        #
+#    Updated: 2022/04/26 15:23:14 by lharkala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = test_fillit
 
 FLAGS = -Wall -Wextra -Werror -Ilibft/inc
 
-SRCS = main.c parser.c
+SRCS = main.c parser.c valid.c testutils.c
 
 OBJS = $(SRCS:.c=.o)
 

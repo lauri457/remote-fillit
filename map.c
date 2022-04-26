@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 01:33:16 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/25 11:49:10 by oseitama         ###   ########.fr       */
+/*   Updated: 2022/04/26 15:26:24 by lharkala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ size_t	count_tetris(t_etris *piecelist)
 	size_t	count;
 
 	count = 0;
-	while(piecelist)
+	while (piecelist)
 	{
 		piecelist = piecelist->next;
 		count++;
@@ -81,7 +81,7 @@ size_t	count_tetris(t_etris *piecelist)
 
 int	round_up_sqrt(int n)
 {
-	int map_size;
+	int	map_size;
 
 	map_size = 2;
 	while (map_size * map_size < n)
