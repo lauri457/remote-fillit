@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 11:34:17 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/27 00:13:25 by lharkala         ###   ########.fr       */
+/*   Updated: 2022/04/27 12:54:39 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,4 @@ int	connectioncount(char *s)
 		i++;
 	}
 	return (count == 6 || count == 8);
-}
-
-/*	Loops checking if both charcouint and connection count. 	*/
-/*	Returns 1 if it passes. 0 otherwise.						*/
-
-int	valid(char *s, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i <= size)
-	{
-		if (charcount(s + i) != 4)
-			return (0);
-		if (connectioncount(s + i) != 6 && connectioncount(s + 1) != 8)
-			return (0);
-		i++;
-	}
-	return (1);
 }

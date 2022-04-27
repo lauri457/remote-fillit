@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:38:03 by oseitama          #+#    #+#             */
-/*   Updated: 2022/04/27 00:14:51 by lharkala         ###   ########.fr       */
+/*   Updated: 2022/04/27 12:55:28 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	place(t_etris *piece, t_map *map, char value)
 
 /*	Backtracking implementation of the solver.							*/
 /*	Loops through the map, checkikng if it can place					*/
-/*	a tetrimino, if so, it necks if theres another tetrimino to place	*/
+/*	a tetrimino, if so, it checks if theres another tetrimino to place	*/
 /*	Returns 0 on solving being done, otherwise 1.						*/
 
 static int	solve_map(t_map	*map, t_etris *piece, int map_size)
