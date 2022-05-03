@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: oseitama <oseitama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 23:45:49 by lharkala          #+#    #+#             */
-/*   Updated: 2022/04/27 00:13:26 by lharkala         ###   ########.fr       */
+/*   Updated: 2022/04/27 12:54:54 by oseitama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	round_up_sqrt(int n)
 		map_size++;
 	return (map_size);
 }
+
+/*	Frees the memory in the list.			*/
 
 void	free_tlist(t_etris **tlist)
 {
