@@ -6,13 +6,13 @@
 #    By: lharkala <lharkala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 11:09:04 by lharkala          #+#    #+#              #
-#    Updated: 2022/04/27 00:12:08 by lharkala         ###   ########.fr        #
+#    Updated: 2022/05/03 12:04:38 by lharkala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 
-FLAGS = -Wall -Wextra -Werror -Ilibft
+FLAGS = -Wall -Wextra -Werror
 
 SRCS = 	main.c \
 		parser.c \
@@ -28,19 +28,18 @@ LIB = libft
 all: $(NAME)
 
 $(NAME):
+	$(MAKE) -C ./$(LIB)
 	gcc $(FLAGS) -c $(SRCS)
 	gcc $(FLAGS) $(OBJS) -I. -o $(NAME) libft/libft.a
 
 clean:
 	rm -f $(OBJS)
+	$(MAKE) -C ./$(LIB) clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C ./$(LIB) fclean
 
 re: fclean all
-
-lib:
-	$(MAKE) -C ./$(LIB) re
-	$(MAKE) -C ./$(LIB) clean
 
 .PHONY: all clean fclean re
